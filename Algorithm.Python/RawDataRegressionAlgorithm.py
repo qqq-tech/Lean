@@ -30,10 +30,6 @@ from QuantConnect.Util import Composer
 from QuantConnect.Interfaces import IDataProvider
 from QuantConnect.Lean.Engine.DataFeeds import DefaultDataProvider
 
-_ticker = "GOOGL";
-_expectedRawPrices = [ 1158.1100, 1158.7200,
-1131.7800, 1114.2800, 1119.6100, 1114.5500, 1135.3200, 567.59000, 571.4900, 545.3000, 540.6400 ]
-
 # <summary>
 # In this algorithm we demonstrate how to use the raw data for our securities
 # and verify that the behavior is correct.
@@ -47,9 +43,12 @@ class RawDataRegressionAlgorithm(QCAlgorithm):
             self.SetEndDate(2014, 4, 7);         
             self.SetCash(100000);                            
 
+            self._expectedRawPrices = [ 1157.93, 1158.72,
+                1131.97, 1114.28, 1120.15, 1114.51, 1134.89, 567.55, 571.50, 545.25, 540.63 ]
+
             # Set our DataNormalizationMode to raw
             self.UniverseSettings.DataNormalizationMode = DataNormalizationMode.Raw;
-            self._googl = self.AddEquity(_ticker, Resolution.Daily).Symbol;
+            self._googl = self.AddEquity("GOOGL", Resolution.Daily).Symbol;
 
             # Get our factor file for this regression
             dataProvider = DefaultDataProvider();
