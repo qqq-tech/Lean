@@ -10,11 +10,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 from AlgorithmImports import *
 
 ### <summary>
-### Regression algorithm which tests a fine fundamental filtered universe, related to GH issue 4127
+### Regression algorithm which tests a fine fundamental filtered universe,
+### related to GH issue 4127
 ### </summary>
 class FineFundamentalFilteredUniverseRegressionAlgorithm(QCAlgorithm):
 
@@ -24,12 +24,12 @@ class FineFundamentalFilteredUniverseRegressionAlgorithm(QCAlgorithm):
         self.SetStartDate(2014,10, 7)
         self.SetEndDate(2014,10,11)
 
-        self.UniverseSettings.Resolution = Resolution.Daily;
+        self.UniverseSettings.Resolution = Resolution.Daily
 
         self.AddUniverse(ConstituentsUniverse(Symbol.Create("constituents-universe-qctest", SecurityType.Equity, Market.USA), self.UniverseSettings), self.FineSelectionFunction)
 
     def FineSelectionFunction(self, fine):
-        return [ x.Symbol for x in fine if x.CompanyProfile.HeadquarterCity == "Cupertino" ]
+        return [ x.Symbol for x in fine if x.CompanyProfile.HeadquarterCity.lower() == "cupertino" ]
 
     def OnData(self, data):
         '''OnData event is the primary entry point for your algorithm. Each new data point will be pumped in here.
